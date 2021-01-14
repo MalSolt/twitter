@@ -90,24 +90,22 @@ export const App = () => {
   useEffect(() => {
     requestData()
   }, [])
+
+  const filteringPosts = () =>
+    posts
+      .filter(e => e.body.toLowerCase().indexOf(filterInputValue.toLowerCase().trim()) !== -1)
+      .map(post => {
+        let user
+        users.filter(e => (e.id === post.userId ? (user = e) : null))
+        return <Post key={post.id} user={user} post={post} filterInputValue={filterInputValue} />
+      })
+
   return (
     <Container>
       <Global />
       <Input value={filterInputValue} onChange={e => setFilterInputValue(e.target.value)} placeholder='Найти пост' />
       <Heading>Посты</Heading>
-      <Posts>
-        {isLoading ? (
-          <Loader />
-        ) : (
-          posts
-            .filter(e => e.body.toLowerCase().indexOf(filterInputValue.toLowerCase().trim()) !== -1)
-            .map(post => {
-              let user
-              users.filter(e => (e.id === post.userId ? (user = e) : null))
-              return <Post key={post.id} user={user} post={post} />
-            })
-        )}
-      </Posts>
+      <Posts>{isLoading ? <Loader /> : filteringPosts()}</Posts>
     </Container>
   )
 }

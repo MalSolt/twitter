@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import userPhoto from './img/user-photo.png'
+import Highlighter from 'react-highlight-words'
 
 const Container = styled.div`
   max-width: 400px;
@@ -53,7 +54,7 @@ const Body = styled.div`
   font-weight: 500;
 `
 
-export const Post = ({ user, post}) => {
+export const Post = ({ user, post, filterInputValue }) => {
   return (
     <Container>
       <Title>{post.title}</Title>
@@ -64,7 +65,14 @@ export const Post = ({ user, post}) => {
           <Nickname>@{user.username}</Nickname>
         </div>
       </UserInfo>
-      <Body>{post.body}</Body>
+      <Body>
+        <Highlighter
+          highlightClassName='YourHighlightClass'
+          searchWords={[filterInputValue]}
+          autoEscape={true}
+          textToHighlight={post.body}
+        />
+      </Body>
     </Container>
   )
 }
