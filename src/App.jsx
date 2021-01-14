@@ -1,8 +1,8 @@
 import { useEffect, useReducer, useState } from 'react'
 import styled from 'styled-components'
 import { API } from './api/api'
-import { Loader } from './Loader'
-import { Post } from './Post'
+import { Loader } from './components/Loader'
+import { Post } from './components/Post'
 import { Global } from './style/Global'
 
 const reducer = (state, action) => {

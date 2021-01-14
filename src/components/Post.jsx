@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import userPhoto from './img/user-photo.png'
+import userPhoto from '../img/user-photo.png'
 import Highlighter from 'react-highlight-words'
 
 const Container = styled.div`
@@ -37,6 +37,7 @@ const Avatar = styled.img`
 `
 
 const Title = styled.div`
+  line-height: 1.2;
   margin-bottom: 10px;
   font-size: 20px;
   color: #ffffff;
@@ -50,6 +51,7 @@ const Title = styled.div`
 `
 
 const Body = styled.div`
+  line-height: 1.2;
   margin-bottom: 10px;
   font-weight: 500;
 `
