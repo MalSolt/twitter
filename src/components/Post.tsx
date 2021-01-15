@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import userPhoto from '../img/user-photo.png'
 import Highlighter from 'react-highlight-words'
+import { TPost, TUser } from '../types/commonTypes'
 
 const Container = styled.div`
   max-width: 400px;
@@ -56,7 +57,13 @@ const Body = styled.div`
   font-weight: 500;
 `
 
-export const Post = ({ user, post, filterInputValue }) => {
+type TProps = {
+  user: TUser
+  post: TPost
+  filterInputValue: string
+}
+
+export const Post = ({ user, post, filterInputValue }: TProps) => {
   return (
     <Container>
       <Title>{post.title}</Title>

@@ -4,8 +4,17 @@ import { API } from './api/api'
 import { Loader } from './components/Loader'
 import { Post } from './components/Post'
 import { Global } from './style/Global'
+import { TPost, TUser } from './types/commonTypes'
 
-const reducer = (state, action) => {
+type TInitialState = {
+  posts: null | [TPost]
+  users: null | [TUser]
+  isLoading: boolean
+}
+
+const initialState: TInitialState = { posts: null, users: null, isLoading: true }
+
+const reducer = (state: TInitialState, action: any): TInitialState => {
   switch (action.type) {
     case 'SET_POSTS':
       return {
@@ -73,10 +82,9 @@ const Posts = styled.div`
   align-items: center;
   height: 90vh;
 `
-
 export const App = () => {
   const [filterInputValue, setFilterInputValue] = useState('')
-  const [state, dispatch] = useReducer(reducer, { posts: null, users: null, isLoading: true })
+  const [state, dispatch] = useReducer(reducer, initialState)
   const { posts, users, isLoading } = state
 
   const requestData = async () => {
@@ -92,12 +100,12 @@ export const App = () => {
   }, [])
 
   const filteringPosts = () =>
-    posts
-      .filter(e => e.body.toLowerCase().indexOf(filterInputValue.toLowerCase().trim()) !== -1)
-      .map(post => {
-        let user
-        users.filter(e => (e.id === post.userId ? (user = e) : null))
-        return <Post key={post.id} user={user} post={post} filterInputValue={filterInputValue} />
+    posts!
+      .filter((e: TPost) => e.body.toLowerCase().indexOf(filterInputValue.toLowerCase().trim()) !== -1)
+      .map((post: TPost) => {
+        let user: TUser
+        users!.filter((e: TUser) => (e.id === post.userId ? (user = e) : null))
+        return <Post key={post.id} user={user!} post={post} filterInputValue={filterInputValue} />
       })
 
   return (
